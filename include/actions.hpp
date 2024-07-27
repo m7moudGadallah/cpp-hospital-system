@@ -10,7 +10,7 @@
  * @param num_of_specializations Number of specializations
  * @return int Returns 0 if the patient is added successfully, otherwise -1
  */
-int add_patient_action(Specialization specializations[],
+int add_patient_action(Specialization *specializations[],
                        int num_of_specializations);
 
 /**
@@ -20,17 +20,26 @@ int add_patient_action(Specialization specializations[],
  * @param num_of_specializations Number of specializations
  * @return int Returns 0 if the patient is picked successfully, otherwise -1
  */
-int pick_patient_action(Specialization specializations[],
+int pick_patient_action(Specialization *specializations[],
                         int num_of_specializations);
 
 /**
- * @brief Display patients Action
+ * @brief Print patients Action
  *
  * @param specializations[] Specializations array
  * @param num_of_specializations Number of specializations
- * @return int
+ * @return int Returns 0 if success, otherwise -1
  */
-int display_patients_action(Specialization specializations[],
-                            int num_of_specializations);
+int print_patients_action(Specialization *specializations[],
+                          int num_of_specializations);
+
+/**
+ * @brief Exist System
+ *
+ * @param specializations
+ * @param num_of_specializations
+ * @return int Returns 0 if success, otherwise -1
+ */
+int exit_action(Specialization *specializations[], int num_of_specializations);
 
 #endif // ACTIONS_HPP_
