@@ -44,3 +44,42 @@ int add_patient_action(Specialization *specializations[],
         return -1;
     }
 }
+
+int pick_patient_action(Specialization *specializations[],
+                        int num_of_specializations) {
+    // show specialization menu
+    int specialization_choice =
+        specialization_menu(specializations, num_of_specializations);
+
+    if (specialization_choice < 0)
+        return specialization_choice;
+
+    try {
+        if (specializations[specialization_choice]->num_of_patients >=
+            specializations[specialization_choice]->capacity) {
+            std::cout
+                << "Specialization is full, please wait and try again later\n";
+            return -1;
+        }
+
+        if (!specializations[specialization_choice]->num_of_patients) {
+            std::cout
+                << "No patients in this specialization at the moment, Dr.\n";
+            return -1;
+        }
+
+        std::string patient_name = dequeue_patient(
+            &(specializations[specialization_choice]->urgent_patients));
+
+        if (patient_name == "") {
+            patient_name = dequeue_patient(
+                &(specializations[specialization_choice]->regular_patients));
+        }
+
+        specializations[specialization_choice]->num_of_patients--;
+        std::cout << patient_name << ", please go with Dr.\n";
+    } catch (const std::exception &e) {
+        std::cout << "Invalid input\n";
+        return -1;
+    }
+}
