@@ -7,7 +7,6 @@
 struct Specialization {
     std::string name;
     int capacity;
-    int num_of_patients;
     PatientQueue *urgent_patients;
     PatientQueue *regular_patients;
 };

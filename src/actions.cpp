@@ -13,7 +13,10 @@ int add_patient_action(Specialization *specializations[],
         return specialization_choice;
 
     try {
-        if (specializations[specialization_choice]->num_of_patients >=
+        int num_of_patients =
+            specializations[specialization_choice]->urgent_patients->size +
+            specializations[specialization_choice]->regular_patients->size;
+        if (num_of_patients >=
             specializations[specialization_choice]->capacity) {
             std::cout
                 << "Specialization is full, please wait and try again later\n";
@@ -37,7 +40,6 @@ int add_patient_action(Specialization *specializations[],
         if (status_code < 0)
             return status_code;
 
-        specializations[specialization_choice]->num_of_patients++;
         std::cout << "Patient added successfully\n";
     } catch (const std::exception &e) {
         std::cout << "Invalid input\n";
@@ -55,14 +57,18 @@ int pick_patient_action(Specialization *specializations[],
         return specialization_choice;
 
     try {
-        if (specializations[specialization_choice]->num_of_patients >=
+        int num_of_patients =
+            specializations[specialization_choice]->urgent_patients->size +
+            specializations[specialization_choice]->regular_patients->size;
+
+        if (num_of_patients >=
             specializations[specialization_choice]->capacity) {
             std::cout
                 << "Specialization is full, please wait and try again later\n";
             return -1;
         }
 
-        if (!specializations[specialization_choice]->num_of_patients) {
+        if (!num_of_patients) {
             std::cout
                 << "No patients in this specialization at the moment, Dr.\n";
             return -1;
@@ -76,7 +82,6 @@ int pick_patient_action(Specialization *specializations[],
                 &(specializations[specialization_choice]->regular_patients));
         }
 
-        specializations[specialization_choice]->num_of_patients--;
         std::cout << patient_name << ", please go with Dr.\n";
     } catch (const std::exception &e) {
         std::cout << "Invalid input\n";
