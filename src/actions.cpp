@@ -1,6 +1,7 @@
 #include "../include/actions.hpp"
 #include "../include/menus.hpp"
 #include "patient_queue.hpp"
+#include "specialization.hpp"
 #include <iostream>
 
 int add_patient_action(Specialization *specializations[],
@@ -121,4 +122,14 @@ int print_patients_action(Specialization *specializations[],
                    print_regular_patient);
 
     return 0;
+}
+
+int exit_action(Specialization *specializations[], int num_of_specializations) {
+    for (int i = 0; i < num_of_specializations; ++i) {
+        if (specializations[i]) {
+            clear_specialization(&specializations[i]);
+        }
+    }
+
+    return -2;
 }

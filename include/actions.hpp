@@ -38,7 +38,7 @@ int print_patients_action(Specialization *specializations[],
  *
  * @param specializations
  * @param num_of_specializations
- * @return int Returns 0 if success, otherwise -1
+ * @return int Returns -2 if success, otherwise -1
  */
 int exit_action(Specialization *specializations[], int num_of_specializations);
 
