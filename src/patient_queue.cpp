@@ -12,3 +12,16 @@ PatientQueue *create_patient_queue() {
 
     return queue;
 }
+
+PatientQueueNode *create_patient_queue_node(std::string patient_name) {
+    PatientQueueNode *node =
+        (PatientQueueNode *)malloc(sizeof(PatientQueueNode));
+
+    if (!node)
+        return nullptr;
+
+    node->patient_name = patient_name;
+    node->next = nullptr;
+
+    return node;
+}
