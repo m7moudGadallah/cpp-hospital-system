@@ -57,4 +57,12 @@ std::string dequeue_patient(PatientQueue **queue);
  */
 void clear_patient_queue(PatientQueue **queue);
 
+/**
+ * @brief Traverse Queue
+ * 
+ * @param queue 
+ * @param fp Function to apply when traversing queue
+ */
+void traverse_queue(PatientQueue *queue, void(*fp)(PatientQueueNode *node));
+
 #endif // PATIENT_QUEUE_HPP_
