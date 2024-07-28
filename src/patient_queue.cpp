@@ -59,3 +59,18 @@ std::string dequeue_patient(PatientQueue **queue) {
     (*queue)->size--;
     return patient_name;
 }
+
+void clear_patient_queue(PatientQueue **queue) {
+    if (!queue or !*queue)
+        return;
+
+    PatientQueueNode *tmp_node = nullptr;
+
+    while ((*queue)->head) {
+        tmp_node = (*queue)->head;
+        (*queue)->head = (*queue)->head->next;
+        free(tmp_node);
+    }
+
+    free(*queue);
+}
