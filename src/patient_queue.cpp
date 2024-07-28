@@ -74,3 +74,13 @@ void clear_patient_queue(PatientQueue **queue) {
 
     free(*queue);
 }
+
+void traverse_queue(PatientQueue *queue, void (*fp)(PatientQueueNode *node)) {
+    if (!queue or !fp)
+        return;
+
+    while (queue->head) {
+        fp(queue->head);
+        queue->head = queue->head->next;
+    }
+}
