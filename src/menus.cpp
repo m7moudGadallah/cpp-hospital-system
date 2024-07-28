@@ -13,9 +13,12 @@ int main_menu() {
         std::cout << "\n> ";
         int choice;
         std::cin >> choice;
+        return choice;
     } catch (const std::exception &e) {
         return -1;
     }
+
+    return -1;
 }
 
 int specialization_menu(Specialization specializations[],

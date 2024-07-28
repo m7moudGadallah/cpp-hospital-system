@@ -4,7 +4,7 @@
 #include "../include/specialization.hpp"
 #include <iostream>
 
-int add_patient_action(Specialization *specializations[],
+int add_patient_action(Specialization specializations[],
                        int num_of_specializations) {
     // show specialization menu
     int specialization_choice =
@@ -15,10 +15,10 @@ int add_patient_action(Specialization *specializations[],
 
     try {
         int num_of_patients =
-            specializations[specialization_choice]->urgent_patients->size +
-            specializations[specialization_choice]->regular_patients->size;
+            specializations[specialization_choice].urgent_patients->size +
+            specializations[specialization_choice].regular_patients->size;
         if (num_of_patients >=
-            specializations[specialization_choice]->capacity) {
+            specializations[specialization_choice].capacity) {
             std::cout
                 << "Specialization is full, please wait and try again later\n";
             return -1;
@@ -28,14 +28,16 @@ int add_patient_action(Specialization *specializations[],
         bool is_urgent = false;
 
         std::cout << "Enter patient name: ";
-        std::cin >> patient_name;
+        std::cin
+            .ignore(); // Consume the newline character left in the input stream
+        std::getline(std::cin, patient_name);
         std::cout << "Enter urgency status(1 urgent, 0 regular): ";
         std::cin >> is_urgent;
 
         int status_code = enqueue_patient(
             &((is_urgent)
-                  ? specializations[specialization_choice]->urgent_patients
-                  : specializations[specialization_choice]->regular_patients),
+                  ? specializations[specialization_choice].urgent_patients
+                  : specializations[specialization_choice].regular_patients),
             patient_name);
 
         if (status_code < 0)
@@ -46,9 +48,11 @@ int add_patient_action(Specialization *specializations[],
         std::cout << "Invalid input\n";
         return -1;
     }
+
+    return 0;
 }
 
-int pick_patient_action(Specialization *specializations[],
+int pick_patient_action(Specialization specializations[],
                         int num_of_specializations) {
     // show specialization menu
     int specialization_choice =
@@ -59,11 +63,11 @@ int pick_patient_action(Specialization *specializations[],
 
     try {
         int num_of_patients =
-            specializations[specialization_choice]->urgent_patients->size +
-            specializations[specialization_choice]->regular_patients->size;
+            specializations[specialization_choice].urgent_patients->size +
+            specializations[specialization_choice].regular_patients->size;
 
         if (num_of_patients >=
-            specializations[specialization_choice]->capacity) {
+            specializations[specialization_choice].capacity) {
             std::cout
                 << "Specialization is full, please wait and try again later\n";
             return -1;
@@ -76,11 +80,11 @@ int pick_patient_action(Specialization *specializations[],
         }
 
         std::string patient_name = dequeue_patient(
-            &(specializations[specialization_choice]->urgent_patients));
+            &(specializations[specialization_choice].urgent_patients));
 
         if (patient_name == "") {
             patient_name = dequeue_patient(
-                &(specializations[specialization_choice]->regular_patients));
+                &(specializations[specialization_choice].regular_patients));
         }
 
         std::cout << patient_name << ", please go with Dr.\n";
@@ -88,6 +92,8 @@ int pick_patient_action(Specialization *specializations[],
         std::cout << "Invalid input\n";
         return -1;
     }
+
+    return 0;
 }
 
 void print_urgent_patient(PatientQueueNode *node) {
@@ -98,7 +104,7 @@ void print_regular_patient(PatientQueueNode *node) {
     std::cout << "name: " << node->patient_name << "\tstatus: regular\n";
 }
 
-int print_patients_action(Specialization *specializations[],
+int print_patients_action(Specialization specializations[],
                           int num_of_specializations) {
     // show specialization menu
     int specialization_choice =
@@ -108,27 +114,26 @@ int print_patients_action(Specialization *specializations[],
         return specialization_choice;
 
     int num_of_patients =
-        specializations[specialization_choice]->urgent_patients->size +
-        specializations[specialization_choice]->regular_patients->size;
+        specializations[specialization_choice].urgent_patients->size +
+        specializations[specialization_choice].regular_patients->size;
 
     if (!num_of_patients) {
         std::cout << "There is no patients in this specialization for now\n";
         return -1;
     }
 
-    traverse_queue(specializations[specialization_choice]->urgent_patients,
+    traverse_queue(specializations[specialization_choice].urgent_patients,
                    print_urgent_patient);
-    traverse_queue(specializations[specialization_choice]->urgent_patients,
+    traverse_queue(specializations[specialization_choice].regular_patients,
                    print_regular_patient);
 
     return 0;
 }
 
-int exit_action(Specialization *specializations[], int num_of_specializations) {
+int exit_action(Specialization specializations[], int num_of_specializations) {
     for (int i = 0; i < num_of_specializations; ++i) {
-        if (specializations[i]) {
-            clear_specialization(&specializations[i]);
-        }
+        Specialization *specialization_ptr = &specializations[i];
+        clear_specialization(&specialization_ptr);
     }
 
     return -2;

@@ -14,7 +14,7 @@
  * @return int Returns 0 if success, -1 otherwise
  */
 int init_specializations(std::string specialization_names[],
-                         Specialization *specializations[],
+                         Specialization specializations[],
                          int num_of_specializations,
                          int specialization_capacity);
 
@@ -25,6 +25,6 @@ int init_specializations(std::string specialization_names[],
  * @param num_of_specializations number of specializations
  * @return int Returns 0 if success, -1 error, -2 signal to exist
  */
-int run_system(Specialization *specializations[], int num_of_specializations);
+int run_system(Specialization specializations[], int num_of_specializations);
 
 #endif // SYSTEM_HPP_
