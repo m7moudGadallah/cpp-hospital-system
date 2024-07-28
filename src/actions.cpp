@@ -88,3 +88,37 @@ int pick_patient_action(Specialization *specializations[],
         return -1;
     }
 }
+
+void print_urgent_patient(PatientQueueNode *node) {
+    std::cout << "name: " << node->patient_name << "\tstatus: urgent\n";
+}
+
+void print_regular_patient(PatientQueueNode *node) {
+    std::cout << "name: " << node->patient_name << "\tstatus: regular\n";
+}
+
+int print_patients_action(Specialization *specializations[],
+                          int num_of_specializations) {
+    // show specialization menu
+    int specialization_choice =
+        specialization_menu(specializations, num_of_specializations);
+
+    if (specialization_choice < 0)
+        return specialization_choice;
+
+    int num_of_patients =
+        specializations[specialization_choice]->urgent_patients->size +
+        specializations[specialization_choice]->regular_patients->size;
+
+    if (!num_of_patients) {
+        std::cout << "There is no patients in this specialization for now\n";
+        return -1;
+    }
+
+    traverse_queue(specializations[specialization_choice]->urgent_patients,
+                   print_urgent_patient);
+    traverse_queue(specializations[specialization_choice]->urgent_patients,
+                   print_regular_patient);
+
+    return 0;
+}
