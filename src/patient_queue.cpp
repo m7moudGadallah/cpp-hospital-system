@@ -79,8 +79,10 @@ void traverse_queue(PatientQueue *queue, void (*fp)(PatientQueueNode *node)) {
     if (!queue or !fp)
         return;
 
-    while (queue->head) {
-        fp(queue->head);
-        queue->head = queue->head->next;
+    PatientQueueNode *curr = queue->head;
+
+    while (curr) {
+        fp(curr);
+        curr = curr->next;
     }
 }

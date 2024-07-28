@@ -7,14 +7,14 @@ Specialization *create_specialization(std::string name, int capacity) {
     if (!specialization)
         return nullptr;
 
-    PatientQueue *urgent_queue = (PatientQueue *)malloc(sizeof(PatientQueue));
+    PatientQueue *urgent_queue = create_patient_queue();
 
     if (!urgent_queue) {
         free(specialization);
         return nullptr;
     }
 
-    PatientQueue *regular_queue = (PatientQueue *)malloc(sizeof(PatientQueue));
+    PatientQueue *regular_queue = create_patient_queue();
 
     if (!regular_queue) {
         free(specialization);
