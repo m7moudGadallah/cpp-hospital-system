@@ -22,23 +22,6 @@ struct Specialization {
 Specialization *create_specialization(std::string name, int capacity);
 
 /**
- * @brief Add new patient
- *
- * @param name Patient name
- * @param is_urgent true if the patient is urgent, otherwise false
- * @return int Returns 0 if patient is add successfully, -1 if the
- * specialization is full, and -2 for other errors
- */
-int add_patient(std::string name, bool is_urgent);
-
-/**
- * @brief Pick a patient from queue
- *
- * @return std::string Returns patient name if there's patients, otherwise ""
- */
-std::string pick_patient();
-
-/**
  * @brief Clear and deallocate the memory of the specialization object
  *
  * @param specialization Specialization object
