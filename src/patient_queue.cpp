@@ -47,3 +47,15 @@ int enqueue_patient(PatientQueue **queue, std::string patient_name) {
 
     return 0;
 }
+
+std::string dequeue_patient(PatientQueue **queue) {
+    if (!queue or !*queue or !(*queue)->size or !(*queue)->head)
+        return "";
+
+    PatientQueueNode *front = (*queue)->head;
+    (*queue)->head = (*queue)->head->next;
+    std::string patient_name = front->patient_name;
+    free(front);
+    (*queue)->size--;
+    return patient_name;
+}
