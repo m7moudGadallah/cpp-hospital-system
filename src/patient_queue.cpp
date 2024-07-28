@@ -25,3 +25,25 @@ PatientQueueNode *create_patient_queue_node(std::string patient_name) {
 
     return node;
 }
+
+int enqueue_patient(PatientQueue **queue, std::string patient_name) {
+    if (!queue or !*queue)
+        return -1;
+
+    PatientQueueNode *node = create_patient_queue_node(patient_name);
+
+    if (!node)
+        return -1;
+
+    if (!(*queue)->head) {
+        (*queue)->head = node;
+        (*queue)->tail = node;
+    } else {
+        (*queue)->tail->next = node;
+        (*queue)->tail = (*queue)->tail->next;
+    }
+
+    (*queue)->size++;
+
+    return 0;
+}
