@@ -1,7 +1,7 @@
 #include "../include/actions.hpp"
 #include "../include/menus.hpp"
-#include "patient_queue.hpp"
-#include "specialization.hpp"
+#include "../include/patient_queue.hpp"
+#include "../include/specialization.hpp"
 #include <iostream>
 
 int add_patient_action(Specialization *specializations[],
