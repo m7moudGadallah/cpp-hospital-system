@@ -30,11 +30,12 @@ Specialization *create_specialization(std::string name, int capacity) {
     return specialization;
 }
 
-void clear_specialization(Specialization **specialization) {
-    if (!specialization or !*specialization)
+void clear_specialization(Specialization *specialization) {
+    if (!specialization)
         return;
 
-    clear_patient_queue(&(*specialization)->urgent_patients);
-    clear_patient_queue(&(*specialization)->regular_patients);
-    free(specialization);
+    clear_patient_queue(specialization->urgent_patients);
+    free(specialization->urgent_patients);
+    clear_patient_queue(specialization->regular_patients);
+    free(specialization->regular_patients);
 }

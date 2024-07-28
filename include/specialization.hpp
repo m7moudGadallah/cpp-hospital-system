@@ -27,6 +27,6 @@ Specialization *create_specialization(std::string name, int capacity);
  * @param specialization Specialization object
  * @return void
  */
-void clear_specialization(Specialization **specialization);
+void clear_specialization(Specialization *specialization);
 
 #endif // SPECIALIZATION_HPP_

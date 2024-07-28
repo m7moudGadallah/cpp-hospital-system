@@ -50,12 +50,12 @@ int enqueue_patient(PatientQueue **queue, std::string patient_name);
 std::string dequeue_patient(PatientQueue **queue);
 
 /**
- * @brief Clear and deallocate the memory of the patient queue node object
+ * @brief Clear and deallocate the memory of the patient queue nodes
  *
  * @param queue Patient queue
  * @return void
  */
-void clear_patient_queue(PatientQueue **queue);
+void clear_patient_queue(PatientQueue *queue);
 
 /**
  * @brief Traverse Queue

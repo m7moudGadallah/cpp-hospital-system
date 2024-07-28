@@ -60,19 +60,21 @@ std::string dequeue_patient(PatientQueue **queue) {
     return patient_name;
 }
 
-void clear_patient_queue(PatientQueue **queue) {
-    if (!queue or !*queue)
+void clear_patient_queue(PatientQueue *queue) {
+    if (!queue)
         return;
 
     PatientQueueNode *tmp_node = nullptr;
 
-    while ((*queue)->head) {
-        tmp_node = (*queue)->head;
-        (*queue)->head = (*queue)->head->next;
+    while (queue->head) {
+        tmp_node = queue->head;
+        queue->head = queue->head->next;
         free(tmp_node);
     }
 
-    free(*queue);
+    queue->head = nullptr;
+    queue->tail = nullptr;
+    queue->size = 0;
 }
 
 void traverse_queue(PatientQueue *queue, void (*fp)(PatientQueueNode *node)) {

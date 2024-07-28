@@ -2,6 +2,7 @@
 #include "../include/menus.hpp"
 #include "../include/patient_queue.hpp"
 #include "../include/specialization.hpp"
+#include <iomanip>
 #include <iostream>
 
 int add_patient_action(Specialization specializations[],
@@ -97,11 +98,15 @@ int pick_patient_action(Specialization specializations[],
 }
 
 void print_urgent_patient(PatientQueueNode *node) {
-    std::cout << "name: " << node->patient_name << "\tstatus: urgent\n";
+    // Set fixed width for patient name and status
+    std::cout << std::left << std::setw(6) << "Name:" << std::setw(30)
+              << node->patient_name << std::setw(8) << "Status:" << "urgent\n";
 }
 
 void print_regular_patient(PatientQueueNode *node) {
-    std::cout << "name: " << node->patient_name << "\tstatus: regular\n";
+    // Set fixed width for patient name and status
+    std::cout << std::left << std::setw(6) << "Name:" << std::setw(30)
+              << node->patient_name << std::setw(8) << "Status:" << "regular\n";
 }
 
 int print_patients_action(Specialization specializations[],
@@ -132,8 +137,7 @@ int print_patients_action(Specialization specializations[],
 
 int exit_action(Specialization specializations[], int num_of_specializations) {
     for (int i = 0; i < num_of_specializations; ++i) {
-        Specialization *specialization_ptr = &specializations[i];
-        clear_specialization(&specialization_ptr);
+        clear_specialization(&specializations[i]);
     }
 
     return -2;
